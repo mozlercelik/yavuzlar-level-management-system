@@ -6,4 +6,4 @@ COPY ./package.json /app
 
 COPY . .
 
-CMD npm install && npm run dev
+CMD npm build && npm start
