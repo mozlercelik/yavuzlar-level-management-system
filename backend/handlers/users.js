@@ -48,7 +48,7 @@ const createUser = (req, res, next) => {
     const admin = req.session.admin;
     const fullname = req.session.fullname;
 
-    if (!isLoggedIn && !validAdmin(admin))
+    if (!(isLoggedIn && validAdmin(admin)))
         return res.send({
             status: "error",
             message: "Unauthorized access.",
@@ -90,7 +90,7 @@ const updateLevel = async (req, res, next) => {
     const admin = req.session.admin;
     const fullname = req.session.fullname;
 
-    if (!isLoggedIn && !validAdmin(admin))
+    if (!(isLoggedIn && validAdmin(admin)))
         res.send({
             status: "error",
             message: "Unauthorized access.",
@@ -132,7 +132,7 @@ const deleteUser = async (req, res, next) => {
     const admin = req.session.admin;
     const fullname = req.session.fullname;
 
-    if (!isLoggedIn && !validAdmin(admin))
+    if (!(isLoggedIn && validAdmin(admin)))
         res.send({
             status: "error",
             message: "Unauthorized access.",
