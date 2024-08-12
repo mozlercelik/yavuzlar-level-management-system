@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 const Database = require("../db/database")
-const { CONNECTION_STRING, PORT } = require("../config")
+const { PORT } = require("../config")
 
 /**
  * Get port from environment and store in Express.
@@ -90,5 +90,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 
-  new Database().connect({ CONNECTION_STRING })
+  Database.authenticate().then(() => console.log("Database bağlandı.")).catch(err => console.log("Database bağlanmadı", err))
 }

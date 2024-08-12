@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const { fetchUsers, createUser, updateLevel, deleteUser } = require('../handlers/users')
+const router = express.Router()
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// /users
 
-module.exports = router;
+router.get("/:level", fetchUsers)
+router.post("/", createUser)
+router.post("/level", updateLevel)
+router.delete("/:id", deleteUser)
+
+module.exports = router

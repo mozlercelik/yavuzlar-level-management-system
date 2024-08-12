@@ -1,32 +1,24 @@
-const mongoose = require("mongoose")
-let instance = null
 
-class Database {
 
-    constructor() {
-        if (!instance) {
-            this.mongoConnection = null
-            instance = this
-        }
+const Sequelize = require('sequelize')
 
-        return instance
-    }
+const { CONNECTION_STRING } = require("../config")
 
-    async connect(options) {
-        try {
+const Database = new Sequelize(CONNECTION_STRING)
 
-            console.log("DB connecting...");
-
-            let db = await mongoose.connect(options.CONNECTION_STRING)
-
-            this.mongoConnection = db
-            console.log("DB connected.");
-        } catch (err) {
-            console.err(err);
-            process.exit(1)
-
-        }
-    }
-}
+// const Database = new Sequelize({
+//     dialect: "postgres",
+//     database: 'ylms',
+//     user: 'postgres',
+//     password: 'postgres',
+//     host: '127.0.0.1',
+//     port: 5432,
+//     ssl: false,
+//     clientMinMessages: 'notice',
+// });
+// const Database = new Sequelize(db.name, db.username, db.password, {
+//     host: "127.0.0.1",
+//     dialect: "postgres"
+// })
 
 module.exports = Database
