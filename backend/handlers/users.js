@@ -11,7 +11,7 @@ const fetchUsers = async (req, res, next) => {
     const fullname = req.session.fullname;
 
     if (!isLoggedIn)
-        return res.send({
+        return res.status(401).send({
             status: "error",
             message: "Unauthorized access.",
             data: null
@@ -23,7 +23,7 @@ const fetchUsers = async (req, res, next) => {
     else if (levels.includes(req.params.level))
         query = "SELECT * FROM users WHERE level=:level ORDER BY id ASC"
     else
-        return res.send({
+        return res.status(400).send({
             status: "error",
             message: "Invalid level.",
             data: null
@@ -33,7 +33,7 @@ const fetchUsers = async (req, res, next) => {
         replacements: { level: req.params.level }
     })
         .then((data) => {
-            return res.send({
+            return res.status(200).send({
                 status: "success",
                 message: "Users fetched successfully.",
                 data: data[0]
